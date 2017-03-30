@@ -42,6 +42,22 @@ const handleButtonClick = (event) => {
     // equal
   }
 
+  if (((counterPlayer + counterComputer) === 2) || ((counterPlayer + counterComputer) === 3)) {
+    console.log(counterPlayer + counterComputer)
+    switch (counterPlayer) {
+      case 2:
+        setTimeout(function () { gameOver(true) }, 3000)
+        break
+      default:
+    }
+    switch (counterComputer) {
+      case 2:
+        setTimeout(function () { gameOver(false) }, 3000)
+        break
+      default:
+    }
+  }
+
   documentPlayer.textContent = counterPlayer
   documentComputer.textContent = counterComputer
     // document.querySelector(span.player) = counterPlayer
@@ -54,13 +70,19 @@ const getComputerMove = () => {
 
 const gameOver = (playerDidWin) => {
   if (playerDidWin) {
+    // setTimeout(function () { $('.dialog h3').textContent = 'You won!' }, 5000)
     $('.dialog h3').textContent = 'You won!'
-    counterPlayer++
+  //  window.setTimout($('.dialog h3'), 2000)
   } else {
+    // setTimeout(function () { $('.dialog h3').textContent = 'You lost!' }, 5000)
     $('.dialog h3').textContent = 'You lost!'
-    counterComputer++
+  //  window.setTimout($('.dialog h3'), 2000)
   }
   $('body').className = 'modal'
+  counterPlayer = 0
+  counterComputer = 0
+  documentPlayer.textContent = 0
+  documentComputer.textContent = 0
 }
 
 const resetGame = () => {
