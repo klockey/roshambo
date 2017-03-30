@@ -13,45 +13,38 @@ const handleButtonClick = (event) => {
   const player = event.target.className
   const computer = getComputerMove()
 
-  // console.log(player)
-  // console.log(computer)
-
   $('figure.player img').src = `https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/${player}.svg`
   $('figure.computer img').src = `https://tiy-tpa-fee.github.io/roshambo/starter-kit/images/${computer}.svg`
 
   // HINT: Check for win, lose or draw, then call `gameOver()` eventually.
   if ((player === 'rock') && (computer === 'paper')) {
     counterComputer++
-    //  gameOver(false)
   } else if ((player === 'rock') && (computer === 'scissors')) {
     counterPlayer++
-    //  gameOver(true)
   } else if ((player === 'paper') && (computer === 'rock')) {
     counterPlayer++
-    //  gameOver(true)
   } else if ((player === 'paper') && (computer === 'scissors')) {
     counterComputer++
-  //  gameOver(false)
   } else if ((player === 'scissors') && (computer === 'rock')) {
     counterComputer++
-  //  gameOver(false)
   } else if ((player === 'scissors') && (computer === 'paper')) {
     counterPlayer++
-  //  gameOver(true)
   } else {
-    // equal
+    // player and computer are equal
   }
 
   if (((counterPlayer + counterComputer) === 2) || ((counterPlayer + counterComputer) === 3)) {
     console.log(counterPlayer + counterComputer)
     switch (counterPlayer) {
       case 2:
+        disableButtons(true)
         setTimeout(function () { gameOver(true) }, 3000)
         break
       default:
     }
     switch (counterComputer) {
       case 2:
+        disableButtons(true)
         setTimeout(function () { gameOver(false) }, 3000)
         break
       default:
@@ -60,7 +53,17 @@ const handleButtonClick = (event) => {
 
   documentPlayer.textContent = counterPlayer
   documentComputer.textContent = counterComputer
-    // document.querySelector(span.player) = counterPlayer
+}
+
+const disableButtons = (disable) => {
+  let inputs = document.getElementsByTagName('button')
+  for (var i = 0; i < inputs.length; i++) {
+    if (disable) {
+      inputs[i].disabled = true
+    } else {
+      inputs[i].disabled = false
+    }
+  }
 }
 
 const getComputerMove = () => {
@@ -70,19 +73,16 @@ const getComputerMove = () => {
 
 const gameOver = (playerDidWin) => {
   if (playerDidWin) {
-    // setTimeout(function () { $('.dialog h3').textContent = 'You won!' }, 5000)
     $('.dialog h3').textContent = 'You won!'
-  //  window.setTimout($('.dialog h3'), 2000)
   } else {
-    // setTimeout(function () { $('.dialog h3').textContent = 'You lost!' }, 5000)
     $('.dialog h3').textContent = 'You lost!'
-  //  window.setTimout($('.dialog h3'), 2000)
   }
   $('body').className = 'modal'
   counterPlayer = 0
   counterComputer = 0
   documentPlayer.textContent = 0
   documentComputer.textContent = 0
+  disableButtons(false)
 }
 
 const resetGame = () => {
