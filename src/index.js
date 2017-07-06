@@ -93,11 +93,13 @@ const resetGame = () => {
 }
 
 const main = () => {
+  resetGame()
   const buttons = $$('.player-input button')
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', handleButtonClick)
   }
   $('.dialog button').addEventListener('click', resetGame)
+  console.log('reset game')
 }
 
 document.addEventListener('DOMContentLoaded', main)
